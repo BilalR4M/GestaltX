@@ -1,0 +1,57 @@
+# Private agent control plane (never commit)
+.gestaltx/
+
+# Secrets and local config
+.env
+.env.local
+*.pem
+*.key
+
+# Corpus and derived indexes (read-only corpus; rebuild locally)
+data/
+qdrant_local/
+*.onnx
+*.onnx_data
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+build/
+*.egg
+.coverage
+htmlcov/
+
+# Node / Next.js
+node_modules/
+src/frontend/.next/
+src/frontend/out/
+src/frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Caches and temp
+.cache/
+tmp/
+temp/
+*.tmp
+.gestaltx/.msg.tmp
+
+# LLM response cache (local)
+.llm_cache/
