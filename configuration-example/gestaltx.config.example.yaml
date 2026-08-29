@@ -1,0 +1,40 @@
+app:
+  corpus_dir: data/raw/Ashen_Era_Archive
+  processed_dir: data/processed
+  documents_jsonl: data/processed/documents.jsonl
+  chunks_jsonl: data/processed/chunks.jsonl
+  entity_graph_path: data/processed/entity_graph.json
+  host: 127.0.0.1
+  port: 8000
+  cors_origins:
+    - http://localhost:3000
+
+llm:
+  provider: ollama
+  ollama_base_url: http://127.0.0.1:11434/v1
+  ollama_model: qwen2.5:7b-instruct
+  openrouter_base_url: https://openrouter.ai/api/v1
+  openrouter_model: qwen/qwen-2.5-7b-instruct:free
+  openrouter_api_key_env: OPENROUTER_API_KEY
+  temperature: 0.1
+  max_tokens: 1024
+  timeout_s: 120
+  max_retries: 5
+  cache_dir: .llm_cache
+
+index:
+  fts_path: data/processed/fts.sqlite3
+  qdrant_path: data/processed/qdrant_local
+  collection_name: ashen_chunks
+  embedding_model: BAAI/bge-small-en-v1.5
+  chunk_size: 900
+  chunk_overlap: 120
+  hybrid_fts_weight: 0.45
+  hybrid_dense_weight: 0.55
+  top_k: 8
+
+agent:
+  max_iterations: 6
+  scratchpad_token_budget: 3500
+  enable_pointer_follow: true
+  enable_near_name_warnings: true
