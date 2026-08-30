@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; --ink: #ebe8df; --muted: #9d9c96; --panel: #131716; --line: #303733; --acid: #c9fa57; --orange: #ff7a47; }
+* { box-sizing: border-box; }
+body { margin: 0; min-height: 100vh; color: var(--ink); background: radial-gradient(circle at 80% 0%, #263426 0, transparent 30rem), #090b0a; font-family: ui-monospace, "Cascadia Code", monospace; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; opacity: .18; background-image: linear-gradient(#fff1 1px, transparent 1px), linear-gradient(90deg, #fff1 1px, transparent 1px); background-size: 40px 40px; }
+main { width: min(1180px, calc(100% - 32px)); margin: auto; padding: 32px 0 80px; position: relative; }
+.brand { letter-spacing: .15em; color: var(--muted); font-size: .76rem; }
+.brand span { display: inline-grid; place-items: center; width: 32px; height: 32px; margin-right: 10px; color: #090b0a; background: var(--acid); font-weight: 900; }
+.hero { padding: 70px 0 48px; border-bottom: 1px solid var(--line); }
+h1 { max-width: 900px; margin: 24px 0; font-family: Georgia, serif; font-size: clamp(3rem, 7vw, 6.8rem); line-height: .94; letter-spacing: -.055em; font-weight: 400; }
+h1 em { color: var(--acid); }
+.hero > p { max-width: 700px; color: var(--muted); font: 1.05rem/1.7 system-ui, sans-serif; }
+.ask { padding: 28px 0; }
+.question-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 22px; }
+.question-picker button { max-width: 330px; text-align: left; border: 1px solid var(--line); background: #101311; color: var(--muted); padding: 10px 12px; cursor: pointer; }
+.question-picker button:hover { border-color: var(--acid); color: var(--ink); }
+.question-picker span { color: var(--acid); display: block; font-size: .68rem; margin-bottom: 4px; }
+label, .eyebrow { text-transform: uppercase; letter-spacing: .16em; color: var(--acid); font-size: .7rem; font-weight: 800; }
+.input-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; margin-top: 10px; }
+textarea { resize: vertical; border: 1px solid var(--line); background: #0d100f; color: var(--ink); font: 1rem/1.5 system-ui, sans-serif; padding: 16px; outline: none; }
+textarea:focus { border-color: var(--acid); }
+.input-row button { border: 0; background: var(--acid); color: #10130d; padding: 0 24px; font-weight: 900; cursor: pointer; }
+button:disabled { opacity: .5; cursor: wait; }
+.workspace { display: grid; grid-template-columns: 1.05fr .95fr; gap: 14px; }
+.panel { min-height: 330px; padding: 24px; border: 1px solid var(--line); background: color-mix(in srgb, var(--panel) 92%, transparent); }
+.panel-heading { display: flex; align-items: start; justify-content: space-between; gap: 12px; }
+.panel h2 { margin: 7px 0 24px; font: 2rem Georgia, serif; }
+.panel h3 { margin-top: 28px; }
+.count, .confidence { color: var(--muted); font-size: .7rem; border: 1px solid var(--line); padding: 7px 9px; }
+.empty { color: var(--muted); font: .95rem/1.6 system-ui, sans-serif; }
+.trace-list { list-style: none; padding: 0; margin: 0; }
+.trace-item { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 18px 0; border-top: 1px solid var(--line); }
+.iteration { color: var(--orange); }
+.trace-item p { margin: 0 0 9px; font: .9rem/1.45 system-ui, sans-serif; }
+.trace-item strong { display: inline-block; min-width: 54px; color: var(--muted); font: .65rem ui-monospace, monospace; text-transform: uppercase; }
+code { color: var(--acid); }
+.source-list { display: flex; gap: 5px; flex-wrap: wrap; }
+.source-list span { padding: 4px 6px; border: 1px solid var(--line); color: var(--muted); font-size: .65rem; }
+.answer-copy { font: 1.3rem/1.6 Georgia, serif; }
+.confidence-track { height: 3px; background: var(--line); }
+.confidence-track span { display: block; height: 100%; background: var(--acid); }
+.citations { padding-left: 20px; color: var(--muted); font: .85rem/1.6 system-ui, sans-serif; }
+.citations a { color: var(--acid); }
+blockquote { border-left: 2px solid var(--line); margin: 8px 0; padding-left: 10px; }
+.error { color: #ff9975; }
+@media (max-width: 760px) { .workspace, .input-row { grid-template-columns: 1fr; } .input-row button { min-height: 48px; } .hero { padding-top: 45px; } }
