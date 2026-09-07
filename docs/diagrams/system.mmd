@@ -1,0 +1,18 @@
+flowchart LR
+  A[Archive files] --> B[Normalize and enrich metadata]
+  B --> C[(FTS5)]
+  B --> D[(Qdrant)]
+  B --> E[(Entity graph)]
+  Q[Question] --> P[Planner]
+  P --> L[Research loop]
+  C --> T[Research tools]
+  D --> T
+  E --> T
+  T --> L
+  L --> G{Gap critic}
+  G -->|missing or contested| L
+  G -->|sufficient| R[Authority arbitration]
+  R --> S[Cited synthesis]
+  L -. iteration SSE .-> U[Next.js trace]
+  S --> API[FastAPI]
+  API --> U
