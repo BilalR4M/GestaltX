@@ -18,7 +18,7 @@ export default function Home() {
   const [partialSections, setPartialSections] = useState<Partial<Record<(typeof SECTION_ORDER)[number], string>>>({});
   const [status, setStatus] = useState<"idle" | "researching" | "error">("idle");
   const [error, setError] = useState("");
-  const [statusLine, setStatusLine] = useState("Ready to research the Ashen Era Archive.");
+  const [statusLine, setStatusLine] = useState("Ready to research the document archive.");
   const [archiveChip, setArchiveChip] = useState("");
   const stopRef = useRef<(() => void) | null>(null);
   const stepCounter = useRef(0);
@@ -48,8 +48,8 @@ export default function Home() {
           const noun = count === 1 ? "document" : "documents";
           setArchiveChip(
             count === 1
-              ? `Archive updated — 1 new ${noun}: ${label}`
-              : `Archive updated — ${count} ${noun}, including ${label}`
+              ? `Document archive updated — 1 new ${noun}: ${label}`
+              : `Document archive updated — ${count} ${noun}, including ${label}`
           );
           if (chipTimerRef.current) clearTimeout(chipTimerRef.current);
           chipTimerRef.current = setTimeout(() => setArchiveChip(""), 8000);
@@ -117,7 +117,7 @@ export default function Home() {
               status: "running",
               iteration: activity.iteration
             }));
-            setStatusLine(`Searching: ${activity.query || "archive"}…`);
+            setStatusLine(`Searching: ${activity.query || "documents"}…`);
           } else if (activity.kind === "tool_end") {
             const id = activity.id || `tool-${activity.iteration ?? Date.now()}`;
             upsertTool((previous) => ({
@@ -131,7 +131,7 @@ export default function Home() {
             }));
             setStatusLine(
               activity.hit_count != null
-                ? `Found ${activity.hit_count} archive matches`
+                ? `Found ${activity.hit_count} document matches`
                 : "Search complete"
             );
           } else if (activity.kind === "status" && activity.message) {
@@ -181,7 +181,7 @@ export default function Home() {
           setStatusLine(
             message.data.mode === "llm"
               ? "Answer drafted with AI assistance."
-              : "Answer built directly from the archive."
+              : "Answer built directly from the documents."
           );
         }
         if (message.type === "error") {
@@ -201,11 +201,12 @@ export default function Home() {
   return (
     <main>
       <header className="hero">
-        <div className="brand"><span>GX</span> ARCHIVE RESEARCH</div>
+        <div className="brand"><span>GX</span> DOCUMENT RESEARCH</div>
         <h1 className="product-name">GESTALTX</h1>
         <p className="tagline">
           Search like a researcher, <em>not a keyword box.</em> Watch the research happen live,
-          then get a plain-language answer with citations.
+          then get a plain-language answer with citations. Point it at any mixed corpus —
+          official records, community notes, and loose papers.
         </p>
         {archiveChip ? (
           <p className="archive-chip" role="status">{archiveChip}</p>
@@ -214,14 +215,14 @@ export default function Home() {
       <section className="ask">
         <QuestionPicker disabled={status === "researching"} onPick={setQuestion} />
         <form onSubmit={submit}>
-          <label htmlFor="question">Ask the Ashen Era Archive</label>
+          <label htmlFor="question">Ask the Document Archive</label>
           <div className="input-row">
             <textarea
               id="question"
               value={question}
               onChange={(event) => setQuestion(event.target.value)}
               rows={2}
-              placeholder="Ask a research question about people, places, relics, or contested dates…"
+              placeholder="Ask about a date, person, place, or disputed claim across your documents…"
             />
             <button disabled={!question.trim() || status === "researching"}>
               {status === "researching" ? "Researching…" : "Begin research"}

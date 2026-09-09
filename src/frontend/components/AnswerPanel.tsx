@@ -142,7 +142,7 @@ export function AnswerPanel({
         <div className="working-card">
           <span className="spinner" aria-hidden="true" />
           <div>
-            <p className="working-title">Working through the archive</p>
+            <p className="working-title">Working through the documents</p>
             <p className="working-copy">{workingLabel || "Searching and comparing sources…"}</p>
           </div>
         </div>
