@@ -1,6 +1,6 @@
 # GestaltX frontend
 
-Next.js 15 App Router interface for viewing the iterative research trace and cited answer.
+Next.js 15 App Router interface for the live research activity feed and the cited brief.
 
 ## Run
 
@@ -15,10 +15,24 @@ Create `.env.local` if the API is not on the default address:
 NEXT_PUBLIC_API_URL=http://127.0.0.1:8000
 ```
 
-Start both the FastAPI backend and the frontend:
+Start the FastAPI backend, then:
 
 ```bash
 npm run dev
 ```
 
-Open http://localhost:3000. The UI consumes `GET /ask/stream?question=...` as server-sent events named `iteration` and `answer`.
+Open http://localhost:3000.
+
+## What the UI consumes
+
+`GET /api/ask/stream?question=...` as server-sent events:
+
+| Event | Use |
+| --- | --- |
+| `activity` | Tool cards (`tool_start` / `tool_end`) and status pills (including corpus refresh) |
+| `reasoning` | Collapsible thought steps |
+| `answer_chunk` | Progressive Answer / Documents / Why / How / Sources |
+| `answer` | Final brief, confidence, citations |
+| `iteration` | Legacy fallback if older backends omit `reasoning` |
+
+While idle the page polls `GET /api/corpus` every 4 seconds. A rising `version` shows an “Archive updated” chip with the new document title and kind.

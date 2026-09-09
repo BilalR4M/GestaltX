@@ -1,6 +1,6 @@
 export const SAMPLE_QUESTIONS = [
   { id: "1c_000", question: "In what year was Gloamreach founded?" },
-  { id: "1c_003", question: "Resolve the archive claim identified as sample question 1c_003." },
+  { id: "1c_003", question: "In which year was the Gauntlet of Sorrowfell actually forged?" },
   { id: "pointer", question: "Which higher-authority source resolves the disputed founding date of Gloamreach?" }
 ];
 
