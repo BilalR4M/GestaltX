@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from ..metadata import classify_document
 from ..models import Document
 from .docx_parser import parse_docx
 from .pdf_parser import parse_pdf
@@ -17,15 +18,17 @@ def parse_file(path: str | Path, corpus_root: str | Path | None = None) -> Docum
     source = Path(path)
     extension = source.suffix.lower()
     if extension in {".md", ".txt"}:
-        return parse_text(source, corpus_root)
-    if extension == ".docx":
-        return parse_docx(source, corpus_root)
-    if extension == ".pdf":
-        return parse_pdf(source, corpus_root)
-    raise ValueError(
-        f"Unsupported file type {extension or '<none>'!r}; "
-        f"expected one of {sorted(SUPPORTED_EXTENSIONS)}"
-    )
+        document = parse_text(source, corpus_root)
+    elif extension == ".docx":
+        document = parse_docx(source, corpus_root)
+    elif extension == ".pdf":
+        document = parse_pdf(source, corpus_root)
+    else:
+        raise ValueError(
+            f"Unsupported file type {extension or '<none>'!r}; "
+            f"expected one of {sorted(SUPPORTED_EXTENSIONS)}"
+        )
+    return classify_document(document)
 
 
 __all__ = [

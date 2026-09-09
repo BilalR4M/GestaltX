@@ -94,16 +94,20 @@ def parse_pdf(path: str | Path, corpus_root: str | Path | None = None) -> Docume
             )
         )
     subject = metadata["subject_entity"]
+    classification = metadata.pop("classification", None)
+    nested = {
+        "extension": ".pdf",
+        "page_count": len(pages),
+        "ocr_attempted": requires_ocr,
+        "ocr_used": used_ocr,
+    }
+    if classification:
+        nested["classification"] = classification
     return Document(
         **metadata,
         sections=sections,
         entities=[subject] if subject else [],
-        metadata={
-            "extension": ".pdf",
-            "page_count": len(pages),
-            "ocr_attempted": requires_ocr,
-            "ocr_used": used_ocr,
-        },
+        metadata=nested,
     )
 
 

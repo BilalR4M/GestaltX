@@ -89,12 +89,16 @@ def parse_text(path: str | Path, corpus_root: str | Path | None = None) -> Docum
     links = list(dict.fromkeys(match.strip() for match in _WIKILINK.findall(text)))
     entities = list(dict.fromkeys(([metadata["subject_entity"]] if metadata["subject_entity"] else []) + links))
     metadata["title"] = title
+    classification = metadata.pop("classification", None)
+    nested = {"extension": source.suffix.lower()}
+    if classification:
+        nested["classification"] = classification
     return Document(
         **metadata,
         sections=sections,
         wikilinks=links,
         entities=entities,
-        metadata={"extension": source.suffix.lower()},
+        metadata=nested,
     )
 
 

@@ -70,12 +70,16 @@ def parse_docx(path: str | Path, corpus_root: str | Path | None = None) -> Docum
     ]
     subject = metadata["subject_entity"]
     metadata["title"] = title
+    classification = metadata.pop("classification", None)
+    nested: dict = {"extension": ".docx"}
+    if classification:
+        nested["classification"] = classification
     return Document(
         **metadata,
         sections=sections,
         entities=[subject] if subject else [],
         infobox=infobox,
-        metadata={"extension": ".docx"},
+        metadata=nested,
     )
 
 
