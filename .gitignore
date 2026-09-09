@@ -55,3 +55,4 @@ temp/
 
 # LLM response cache (local)
 .llm_cache/
+*.tsbuildinfo

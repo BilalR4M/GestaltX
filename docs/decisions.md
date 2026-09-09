@@ -19,3 +19,8 @@ Tools return compact hits and load individual sections. This keeps local-model p
 ## SSE trace
 
 Server-sent events fit a one-way research stream, work in browsers without another protocol, and let users inspect progress before synthesis.
+
+
+## 2026-09-06 recovery
+
+After the 5 Sep eval failed on 1c_000 (contested stall + Gloammarch decoy), we enabled pointer-following to Codex/Annals and near-name warnings. Gloamreach founding resolves to **246 AS**; Gauntlet forging resolves to **391 AS**.
