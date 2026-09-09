@@ -1,0 +1,24 @@
+flowchart TD
+  Drop[New or edited file in data/raw/Ashen_Era_Archive] --> Scan
+  Poll[Background watcher thread, every 3s] --> Scan
+  Ask[Question arrives at /api/ask or /api/ask/stream] --> Scan
+
+  Scan[Fast scan: relative path, size, mtime_ns] --> Sig{Signature differs from corpus_manifest.json?}
+  Sig -->|no| Serve[Answer from the current index]
+  Sig -->|yes| Diff[Diff into added / modified / removed]
+  Diff --> Debounce{File younger than debounce window?}
+  Debounce -->|yes, still being copied| Defer[Defer to next tick]
+  Debounce -->|no| Lock[Acquire refresh lock]
+
+  Lock --> Parse["parse_file plus chunk_document for added and modified only"]
+  Parse --> Classify{Folder family known?}
+  Classify -->|"codex, wiki, chronicles, ephemera"| Fts
+  Classify -->|no| Infer["Infer from filename, then content, else tier 3 chronicle"]
+  Infer --> Fts
+
+  Fts["FTS5: remove_document for removed and modified, then add new chunks"] --> Jsonl[Merge documents.jsonl and chunks.jsonl atomically]
+  Jsonl --> Graph[Rebuild entity_graph.json including near-name warnings]
+  Graph --> Manifest[Bump manifest version and write manifest]
+  Manifest --> Bust["runtime.invalidate: drop cached graph, tools, FTS, searcher"]
+  Bust --> Notify[Summary exposed via /api/corpus and the research activity feed]
+  Notify --> Serve

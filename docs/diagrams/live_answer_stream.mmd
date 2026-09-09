@@ -1,0 +1,33 @@
+sequenceDiagram
+  autonumber
+  participant U as Browser (Next.js)
+  participant API as FastAPI
+  participant RT as Runtime
+  participant W as Corpus watcher
+  participant L as Research loop
+  participant SY as Synthesis
+
+  U->>API: GET /api/ask/stream?question=...
+  API->>RT: research_loop()
+  RT->>W: refresh_if_stale()
+  W-->>RT: refresh summary or none
+  RT-->>API: loop with corpus_update
+  API-->>U: activity (status) new documents indexed
+  L-->>U: plan
+  L-->>U: reasoning (framing the question)
+  loop until evidence is sufficient or budget spent
+    L-->>U: activity (tool_start) search_corpus
+    L-->>U: activity (tool_end) hit count and sources
+    L-->>U: reasoning (finding)
+    L-->>U: reasoning (judgment)
+  end
+  L->>SY: claims, dossier, retrieval log
+  SY-->>U: answer_chunk (answer)
+  SY-->>U: answer_chunk (documents, why, how, sources)
+  SY-->>U: answer (citations, confidence, sections)
+
+  par While idle
+    U->>API: GET /api/corpus every 4s
+    API-->>U: version, documents, chunks, recent
+    U->>U: Show "Archive updated" chip when version increases
+  end

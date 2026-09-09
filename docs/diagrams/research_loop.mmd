@@ -1,0 +1,22 @@
+flowchart TD
+  Q[Question] --> Refresh{Corpus stale?}
+  Refresh -->|yes| Index[Incremental index then invalidate caches]
+  Refresh -->|no| Plan
+  Index --> Plan[Planner: entities, intent, first queries]
+  Plan --> ReasonPlan[Reasoning: frame the question]
+  ReasonPlan --> Search[search_corpus tool]
+  Search --> Extract[Extract claims from hits]
+  Extract --> Find[Reasoning: what this pass found]
+  Find --> Critic{Gap critic}
+  Critic -->|pointer or missing claim| Next[Reformulate query, raise authority filter]
+  Next --> Search
+  Critic -->|near-name warning| Next
+  Critic -->|sufficient or budget spent| Arbitrate[Claim arbitration by tier]
+  Arbitrate --> Judge[Reasoning: which source stands]
+  Judge --> Dossier[Build document dossier]
+  Dossier --> Brief[Heuristic Answer Why Documents How Sources]
+  Brief --> Voice{Voice and fact check}
+  Voice -->|LLM available and clean| Polish[LLM rewrites Answer and Why only]
+  Voice -->|fail or offline| Keep[Keep heuristic brief]
+  Polish --> Out[Stream answer_chunk then final answer]
+  Keep --> Out

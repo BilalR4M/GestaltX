@@ -1,0 +1,53 @@
+flowchart TB
+  subgraph client [Next.js client]
+    UI[page.tsx]
+    Trace[ResearchTrace activity feed]
+    Answer[AnswerPanel progressive sections]
+    Poll[corpusStatus poll]
+    UI --> Trace
+    UI --> Answer
+    UI --> Poll
+  end
+
+  subgraph api [FastAPI runtime]
+    Health["GET /api/health"]
+    Corpus["GET /api/corpus"]
+    Ask["POST /api/ask"]
+    Stream["GET /api/ask/stream"]
+    RT[Runtime]
+    Watch[CorpusWatcher]
+    Loop[ResearchLoop]
+    Synth[synthesize_answer]
+    Health --> RT
+    Corpus --> Watch
+    Ask --> RT
+    Stream --> RT
+    RT --> Watch
+    RT --> Loop
+    Loop --> Synth
+  end
+
+  subgraph indexes [Processed indexes]
+    FTS[(FTS5 sqlite)]
+    Graph[(entity_graph.json)]
+    Docs[(documents.jsonl)]
+    Chunks[(chunks.jsonl)]
+    Manifest[(corpus_manifest.json)]
+    Qdrant[(Qdrant optional)]
+  end
+
+  subgraph archive [Corpus]
+    Raw["data/raw/Ashen_Era_Archive"]
+  end
+
+  Poll --> Corpus
+  Stream -.->|SSE activity reasoning answer_chunk| UI
+  Watch --> Raw
+  Watch --> FTS
+  Watch --> Graph
+  Watch --> Docs
+  Watch --> Chunks
+  Watch --> Manifest
+  Loop --> FTS
+  Loop --> Graph
+  Loop --> Qdrant

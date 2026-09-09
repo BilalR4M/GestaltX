@@ -1,0 +1,18 @@
+flowchart TD
+  File[File appears under Ashen_Era_Archive] --> Folder{Path contains codex wiki chronicles ephemera or images?}
+  Folder -->|yes| Family[Use that family tier and reliability]
+  Folder -->|no| Name{Filename stem has a keyword?}
+  Name -->|codex gazetteer annal| Codex[tier 1 official codex]
+  Name -->|wiki| Wiki[tier 2 community wiki]
+  Name -->|chronicle| Chron[tier 3 chronicle]
+  Name -->|ledger decree letter ballad petition transcript| Eph[tier 4 ephemera]
+  Name -->|no| Content{Heading or shape after parse?}
+  Content -->|Codex or Annals heading| Codex
+  Content -->|wikilinks or infobox| Wiki
+  Content -->|still unknown| Default[tier 3 chronicle mid-trust]
+  Family --> Index
+  Codex --> Index
+  Wiki --> Index
+  Chron --> Index
+  Eph --> Index
+  Default --> Index[Chunk, FTS replace, graph rebuild]

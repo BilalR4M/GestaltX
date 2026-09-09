@@ -1,0 +1,15 @@
+flowchart LR
+  Claims[Claim records] --> Dossier[build_dossier]
+  Hits[Search hits] --> Dossier
+  Dossier --> DocsSec[What the documents say]
+  Dossier --> WhySec[Why this is the answer]
+  Dossier --> HowSec[How this answer was found]
+  Dossier --> SrcSec[Sources with role and locator]
+  Dossier --> AnsSec[Answer line with friendly title]
+  WhySec --> Compact[Compact JSON dossier to LLM]
+  AnsSec --> Compact
+  Compact --> Check{violations and numbers match dossier?}
+  Check -->|yes| Merge[Merge LLM Answer and Why with heuristic rest]
+  Check -->|no| Heuristic[Use full heuristic brief]
+  Merge --> SSE[answer_chunk then answer]
+  Heuristic --> SSE
