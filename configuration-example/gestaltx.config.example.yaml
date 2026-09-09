@@ -4,6 +4,7 @@ app:
   documents_jsonl: data/processed/documents.jsonl
   chunks_jsonl: data/processed/chunks.jsonl
   entity_graph_path: data/processed/entity_graph.json
+  corpus_manifest: data/processed/corpus_manifest.json
   host: 127.0.0.1
   port: 8000
   cors_origins:
@@ -38,3 +39,9 @@ agent:
   scratchpad_token_budget: 3500
   enable_pointer_follow: true
   enable_near_name_warnings: true
+
+watch:
+  enabled: true
+  interval_s: 3.0
+  debounce_s: 1.5
+  check_on_query: true

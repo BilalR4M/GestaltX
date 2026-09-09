@@ -44,12 +44,20 @@ class AgentSettings(BaseModel):
     enable_near_name_warnings: bool = True
 
 
+class WatchSettings(BaseModel):
+    enabled: bool = True
+    interval_s: float = 3.0
+    debounce_s: float = 1.5
+    check_on_query: bool = True
+
+
 class AppSettings(BaseModel):
     corpus_dir: str = "data/raw/Ashen_Era_Archive"
     processed_dir: str = "data/processed"
     documents_jsonl: str = "data/processed/documents.jsonl"
     chunks_jsonl: str = "data/processed/chunks.jsonl"
     entity_graph_path: str = "data/processed/entity_graph.json"
+    corpus_manifest: str = "data/processed/corpus_manifest.json"
     host: str = "127.0.0.1"
     port: int = 8000
     cors_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
@@ -60,6 +68,7 @@ class GestaltConfig(BaseModel):
     llm: LLMSettings = Field(default_factory=LLMSettings)
     index: IndexSettings = Field(default_factory=IndexSettings)
     agent: AgentSettings = Field(default_factory=AgentSettings)
+    watch: WatchSettings = Field(default_factory=WatchSettings)
 
 
 class EnvSettings:

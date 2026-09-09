@@ -23,7 +23,7 @@ class FTSIndex:
     def __init__(self, path: str | Path) -> None:
         self.path = Path(path)
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.connection = sqlite3.connect(str(self.path))
+        self.connection = sqlite3.connect(str(self.path), check_same_thread=False)
         self.connection.row_factory = sqlite3.Row
         self.connection.execute(
             """
@@ -70,6 +70,16 @@ class FTSIndex:
         return len(rows)
 
     index = add
+
+    def remove_document(self, doc_id: str) -> int:
+        """Delete every chunk belonging to ``doc_id``. Returns rows removed."""
+        cursor = self.connection.execute("DELETE FROM chunks WHERE doc_id = ?", (str(doc_id),))
+        self.connection.commit()
+        return int(cursor.rowcount or 0)
+
+    def count(self) -> int:
+        row = self.connection.execute("SELECT COUNT(*) AS n FROM chunks").fetchone()
+        return int(row["n"] if row is not None else 0)
 
     def clear(self) -> None:
         self.connection.execute("DELETE FROM chunks")
