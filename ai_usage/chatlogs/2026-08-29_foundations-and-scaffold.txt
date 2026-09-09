@@ -1,4 +1,4 @@
-Chat log — foundations and scaffold
+Chat log - foundations and scaffold
 
 - Date: 2026-08-29 (Asia/Colombo)
 - Tool: Cursor coding assistant
@@ -23,7 +23,7 @@ Frontend scaffold (Virul)
 
 User / team: We need a separate trace UI; judges should see progress before the final answer.
 
-Assistant: Scaffolded Next.js App Router under `src/frontend` with Tailwind. No business logic yet — placeholder layout only.
+Assistant: Scaffolded Next.js App Router under `src/frontend` with Tailwind. No business logic yet - placeholder layout only.
 
 Ingest models (Dasun)
 

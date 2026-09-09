@@ -1,6 +1,6 @@
 # Assistant usage
 
-Claude-family and Cursor (Composer / Grok-family) coding assistants were used to draft code, tests, and documentation. Outputs require human review and do not constitute evidence for archive answers.
+OpenCode and Cursor (Composer / Grok-family) coding assistants were used to draft code, tests, and documentation. Outputs require human review and do not constitute evidence for archive answers.
 
 Required submission artifacts:
 

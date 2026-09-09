@@ -52,3 +52,7 @@ These are reviewed development-window summaries (29 Aug – 9 Sep 2026). Secrets
 ## 5. Judging note
 
 Submissions are judged on human insight, working functionality, and demonstrated understanding. GestaltX’s eval failure (5 Sep) and recovery (6 Sep), arbitration rules, and voice/dossier design are human product decisions. AI accelerated typing and exploration; the team owned architecture, validation, and the final answer.
+
+## 6. Key hygiene (related)
+
+No API keys appear in this disclosure or in chat-log exports. Cloud keys (if used) load from `.env` / `OPENROUTER_API_KEY` only. See `configuration-example/api-key-hygiene.md`.

@@ -76,7 +76,14 @@ class LLMClient:
                 with httpx.Client(timeout=self.settings.timeout_s) as client:
                     response = client.post(url, headers=headers, json=payload)
                 if response.status_code == 429:
-                    time.sleep(delay)
+                    retry_after = response.headers.get("Retry-After")
+                    wait = delay
+                    if retry_after:
+                        try:
+                            wait = max(delay, float(retry_after))
+                        except ValueError:
+                            wait = delay
+                    time.sleep(wait)
                     delay = min(delay * 2, 30)
                     continue
                 response.raise_for_status()

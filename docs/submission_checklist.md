@@ -9,7 +9,9 @@
 - [ ] Run `python -m pytest -q`
 - [ ] Run local and HTTP evaluation modes
 - [ ] Confirm `1c_000` returns 246 AS with a Codex citation
-- [ ] Verify no corpus, cache, index, `.env`, or secret is committed
+- [ ] Verify no corpus, cache, index, `.env`, or secret is committed (scan history for leaked keys)
+- [ ] Confirm API keys load only from `.env` / env vars; revoke and rotate any key that was ever pasted or committed
+- [ ] Confirm LLM calls use exponential backoff on HTTP 429 (`LLMClient`, default 5 retries)
 - [ ] Export and review AI chat logs as plain `.txt` under `ai_usage/chatlogs/` (see README.txt)
 - [ ] Confirm `ai_usage/ai-usage-disclosure.md` lists tools, purposes, and team decisions
 - [ ] Review AI-use disclosure and limitations

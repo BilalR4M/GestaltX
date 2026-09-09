@@ -1,4 +1,4 @@
-Chat log — submission documentation and AI disclosure
+Chat log - submission documentation and AI disclosure
 
 - Date: 2026-09-08 (Asia/Colombo)
 - Tool: Cursor coding assistant
@@ -13,7 +13,7 @@ Session summary
 
 Limitations (Dasun)
 
-User / team: Judges should see honest bounds — OCR, free-model rate limits, tier conventions.
+User / team: Judges should see honest bounds - OCR, free-model rate limits, tier conventions.
 
 Assistant: `docs/limitations.md` covers OCR brittleness, OpenRouter availability, confidence not being probability, missing official 20-question file when absent locally.
 
@@ -50,5 +50,5 @@ Commits referenced
 
 Follow-up noted for 9 Sep
 
-- Chat logs still placeholders — need full development-window summaries.
+- Chat logs still placeholders - need full development-window summaries.
 - UI feedback: answers correct but not readable enough for non-archivists (addressed next day).

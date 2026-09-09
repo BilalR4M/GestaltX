@@ -1,7 +1,7 @@
 # Limitations
 
 - OCR is brittle on degraded scans, unusual typefaces, marginalia, and multi-column pages.
-- Free OpenRouter models have variable availability and rate limits; retries and caching reduce but do not remove this risk.
+- Free OpenRouter models have variable availability and rate limits; `LLMClient` retries HTTP 429 with exponential backoff (1s, 2s, 4s…) and caches successful replies under `.llm_cache/`. Prefer Ollama for demos. See `configuration-example/api-key-hygiene.md`.
 - Local small models may mishandle subtle contradictions. GestaltX therefore treats the LLM as optional polish on Answer and Why; the heuristic brief is the source of truth when Ollama is offline or voice validation fails.
 - One-shot RAG is not reliable for contested claims, documentary pointers, or near-name decoys.
 - Authority tiers encode archive conventions and cannot prove that a source is historically true.

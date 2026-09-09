@@ -1,4 +1,4 @@
-Chat log — ingest parsers and frontend shell
+Chat log - ingest parsers and frontend shell
 
 - Date: 2026-08-30 (Asia/Colombo)
 - Tool: Cursor coding assistant
@@ -7,7 +7,7 @@ Chat log — ingest parsers and frontend shell
 
 Outcome
 
-Markdown and plain-text corpus files parse into heading-delimited sections. The frontend got an ask form and API client stub. A PowerShell commit helper was added for backdated team attribution (private `.gestaltx` protocol — not exported here).
+Markdown and plain-text corpus files parse into heading-delimited sections. The frontend got an ask form and API client stub. A PowerShell commit helper was added for backdated team attribution (private `.gestaltx` protocol - not exported here).
 
 Session summary
 
@@ -29,7 +29,7 @@ Commit workflow (Bilal)
 
 User / team: Four contributors need consistent commit messages and dates across the competition window.
 
-Assistant: Drafted `scripts/agent_commit.ps1` reading private timeline + team YAML (gitignored). Agents set `GIT_AUTHOR_*` env vars per task — never global git config.
+Assistant: Drafted `scripts/agent_commit.ps1` reading private timeline + team YAML (gitignored). Agents set `GIT_AUTHOR_*` env vars per task - never global git config.
 
 Commits referenced
 
@@ -41,4 +41,4 @@ Commits referenced
 Blockers noted
 
 - Full Ashen Era archive not yet on every machine; tests use small fixtures.
-- Dense embeddings slow on CPU — flagged for optional build flag later.
+- Dense embeddings slow on CPU - flagged for optional build flag later.

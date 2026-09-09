@@ -1,25 +1,25 @@
-Chat log — iterative agent loop and arbitration
+Chat log - iterative agent loop and arbitration
 
-- Date: 2026-09-03 – 2026-09-04 (Asia/Colombo)
+- Date: 2026-09-03 - 2026-09-04 (Asia/Colombo)
 - Tool: Cursor coding assistant
 - Epic: E5 loop, E6 arbitration
 - Reviewed: Yes.
 
 Outcome
 
-GestaltX became an iterative agent: planner → tool calls → gap critic → reformulate → arbitrate → synthesize. Frontend consumes SSE `iteration` events. Scratchpad tracks claims, open questions, and entity focus.
+GestaltX became an iterative agent: planner -> tool calls -> gap critic -> reformulate -> arbitrate -> synthesize. Frontend consumes SSE `iteration` events. Scratchpad tracks claims, open questions, and entity focus.
 
 Session summary
 
 Scratchpad and planner (Bilal)
 
-User / team: “Searching the way a human does” means knowing what you still need. A contested year is a gap, not an answer.
+User / team: "Searching the way a human does" means knowing what you still need. A contested year is a gap, not an answer.
 
 Assistant: `Scratchpad` stores entities, required claims, and extracted `ClaimRecord`s. `Planner` heuristically (and optionally LLM) decomposes questions into queries and claim types (founding year, forging year, pointer resolution).
 
 Gap critic (Bilal)
 
-User / team: When wiki says “contested — consult the Codex”, the loop must open a new search scoped to tier 1.
+User / team: When wiki says "contested - consult the Codex", the loop must open a new search scoped to tier 1.
 
 Assistant: `GapCritic` flags missing claims, conflicting values, and pointer language. Loop continues until satisfied or `max_iterations`.
 

@@ -1,4 +1,4 @@
-Chat log — first eval, API integration, and 1c_000 failure
+Chat log - first eval, API integration, and 1c_000 failure
 
 - Date: 2026-09-05 (Asia/Colombo)
 - Tool: Cursor coding assistant
@@ -17,7 +17,7 @@ User / team: Frontend must not poll; stream research steps as they happen.
 
 Assistant: `create_app` with CORS for localhost:3000, `POST /api/ask`, `GET /api/ask/stream` emitting named SSE events. `Runtime` lazy-loads FTS, graph, tools from `data/processed/`.
 
-Bug found same week: Frontend initially called `/ask/stream` without `/api` prefix → 404. Added compatibility routes on both paths.
+Bug found same week: Frontend initially called `/ask/stream` without `/api` prefix -> 404. Added compatibility routes on both paths.
 
 Synthesis v1 (Bilal)
 
@@ -41,7 +41,7 @@ First eval failure (team + assistant)
 
 Observed behavior:
 
-1. Wiki hit says founding is contested → loop stopped treating that as unresolved.
+1. Wiki hit says founding is contested -> loop stopped treating that as unresolved.
 2. Retrieval surfaced Gloammarch (321 AS) due to lexical similarity.
 3. No Codex gazetteer year (246 AS) in final answer.
 

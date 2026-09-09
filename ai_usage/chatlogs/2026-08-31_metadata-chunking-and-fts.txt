@@ -1,4 +1,4 @@
-Chat log — metadata, chunking, and FTS
+Chat log - metadata, chunking, and FTS
 
 - Date: 2026-08-31 (Asia/Colombo)
 - Tool: Cursor coding assistant

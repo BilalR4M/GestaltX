@@ -1,6 +1,6 @@
-Chat log — pointer recovery and regression tests
+Chat log - pointer recovery and regression tests
 
-- Date: 2026-09-06 – 2026-09-07 (Asia/Colombo)
+- Date: 2026-09-06 - 2026-09-07 (Asia/Colombo)
 - Tool: Cursor coding assistant
 - Epic: E5/E6 recovery, E8 regression
 - Reviewed: Yes.
@@ -13,11 +13,11 @@ Session summary
 
 Recovery design (Bilal + Anjana)
 
-User / team: Wiki “contested” must trigger a tier-1 search, not an answer. Gloammarch must never satisfy a Gloamreach founding question.
+User / team: Wiki "contested" must trigger a tier-1 search, not an answer. Gloammarch must never satisfy a Gloamreach founding question.
 
 Assistant:
 
-- Gap critic treats “contested” / “consult the” as open gap.
+- Gap critic treats "contested" / "consult the" as open gap.
 - Planner adds Codex/Annals scoped queries on pointer detection.
 - Near-name warnings from entity graph surfaced in trace.
 - Claim extraction attributes years to source tier; arbitration prefers tier 1 entity match.
@@ -26,7 +26,7 @@ Result documented in `eval/reports/2026-09-06_recovery.md`.
 
 Claim extraction fixes (Bilal)
 
-User / team: Contested passages without a clean year digit still matter — they signal dispute, not resolution.
+User / team: Contested passages without a clean year digit still matter - they signal dispute, not resolution.
 
 Assistant: `_extract_claims` marks secondary contested lines as `Contested` rather than inventing years; quote spans tightened around matched clauses.
 
@@ -46,7 +46,7 @@ Architecture docs (Bilal)
 
 User / team: Capture why iterative loop exists for judges reading the repo cold.
 
-Assistant: Initial `docs/architecture.md` and `docs/decisions.md` — iterative research, hybrid retrieval, authority arbitration, SSE trace.
+Assistant: Initial `docs/architecture.md` and `docs/decisions.md` - iterative research, hybrid retrieval, authority arbitration, SSE trace.
 
 Commits referenced
 

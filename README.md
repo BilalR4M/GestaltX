@@ -22,7 +22,7 @@ and the next question includes it — no rebuild script.
 
 | Member | Role |
 | --- | --- |
-| Bilal Awshid | Lead - agent loop, LLM, arbitration |
+| Bilal Awshid | Agent loop, LLM, arbitration |
 | Dasun Wickramasooriya | Ingestion, parsers, indexing |
 | Anjana Pinnawala | Entity graph, tools, evaluation |
 | Virul Methnidu Meemana | Frontend - Next.js live trace UI |
@@ -67,6 +67,8 @@ pip install -e .
 
 copy configuration-example\.env.example .env
 ```
+
+Do not put real API keys in Git, chats, or screenshots. Keys load from `.env` (gitignored). See [configuration-example/api-key-hygiene.md](configuration-example/api-key-hygiene.md). Default LLM is Ollama (no cloud key). LLM calls retry HTTP 429 with exponential backoff.
 
 Run API:
 
@@ -119,3 +121,4 @@ Goldens: Gloamreach founding **246 AS**; Gauntlet of Sorrowfell forged **391 AS*
 - [docs/submission_report.md](docs/submission_report.md)
 - [ai_usage/](ai_usage/)
 - [configuration-example/ollama-setup.md](configuration-example/ollama-setup.md)
+- [configuration-example/api-key-hygiene.md](configuration-example/api-key-hygiene.md)

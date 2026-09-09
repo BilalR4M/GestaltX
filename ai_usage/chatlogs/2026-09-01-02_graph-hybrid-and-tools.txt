@@ -1,6 +1,6 @@
-Chat log — entity graph, hybrid retrieval, and tools
+Chat log - entity graph, hybrid retrieval, and tools
 
-- Date: 2026-09-01 – 2026-09-02 (Asia/Colombo)
+- Date: 2026-09-01 - 2026-09-02 (Asia/Colombo)
 - Tool: Cursor coding assistant
 - Epic: E3 index/graph, E4 tool layer
 - Reviewed: Yes.
@@ -19,7 +19,7 @@ Assistant: `ingest_corpus` walks supported extensions, `build_indexes` orchestra
 
 Entity graph (Anjana)
 
-User / team: Wikilinks and infobox fields are clues for “who is mentioned where” and near-name traps.
+User / team: Wikilinks and infobox fields are clues for "who is mentioned where" and near-name traps.
 
 Assistant: `EntityGraph.build` adds document nodes, entity nodes, `mentions`, `wikilink`, and infobox edges. `find_near_name_pairs` adds warning edges when names are orthographically close (Gloamreach vs Gloammarch).
 
