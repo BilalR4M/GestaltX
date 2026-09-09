@@ -1,11 +1,17 @@
 # AI context supplied
 
-Assistants received repository source, architecture constraints, known `1c_000` / `1c_003` evidence (246 AS founding, 391 AS forging), UI screenshots of the research page, and requested file lists. The official 20-question file was not treated as inventable when missing.
+Assistants received repository source, architecture constraints, known 1C evidence (Gloamreach **246 AS**, Gauntlet **391 AS**, Gloammarch decoy **321 AS**), UI screenshots during UX iterations, and requested file lists. The official 20-question file was not treated as inventable when missing locally.
 
-Later in the same working day the assistants also received:
+## Context by development phase
 
-- feedback that answers were correct but too thin, then too templated, then too full of “we” and technical jargon
-- a request to visualize search live in the style of current agentic UIs
-- a request that new corpus files be recognized automatically without running scripts
+- **29 Aug – 2 Sep:** Ingest/index design, hybrid retrieval trade-offs, local-first stack constraints.
+- **3–4 Sep:** Iterative loop vs one-shot RAG; SSE trace requirements.
+- **5 Sep:** Eval failure report and pointer-follow recovery goals.
+- **6–9 Sep:** Human-readable answers, agentic UI patterns, automatic corpus refresh, submission checklist.
 
-Secrets, local indexes, model caches, absolute machine paths, and raw corpus content should not be exported.
+## Exports (competition format)
+
+- Disclosure: [ai-usage-disclosure.md](ai-usage-disclosure.md) — tools, purposes, **team decisions**
+- Chat history: plain **`.txt`** logs in [chatlogs/README.txt](chatlogs/README.txt)
+
+Do not export: secrets, local indexes, model caches, raw corpus content, or private `.gestaltx/` control-plane files.

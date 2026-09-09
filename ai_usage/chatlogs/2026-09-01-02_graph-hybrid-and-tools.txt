@@ -1,0 +1,51 @@
+Chat log — entity graph, hybrid retrieval, and tools
+
+- Date: 2026-09-01 – 2026-09-02 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E3 index/graph, E4 tool layer
+- Reviewed: Yes.
+
+Outcome
+
+Full corpus walk writes `documents.jsonl` and `chunks.jsonl`. Optional Qdrant dense index and FTS fusion form `HybridSearcher`. NetworkX entity graph exports to JSON. Agent tools: `search_corpus`, `read_section`, `lookup_entity`, `list_sources_about`, with tier/entity filters and JIT section reads.
+
+Session summary
+
+Corpus pipeline (Dasun)
+
+User / team: One command should ingest the archive and build indexes for demo machines.
+
+Assistant: `ingest_corpus` walks supported extensions, `build_indexes` orchestrates ingest + FTS + graph. Dense vectors gated behind `--dense` because FastEmbed over the full archive is slow on CPU.
+
+Entity graph (Anjana)
+
+User / team: Wikilinks and infobox fields are clues for “who is mentioned where” and near-name traps.
+
+Assistant: `EntityGraph.build` adds document nodes, entity nodes, `mentions`, `wikilink`, and infobox edges. `find_near_name_pairs` adds warning edges when names are orthographically close (Gloamreach vs Gloammarch).
+
+Hybrid search (Dasun + Anjana)
+
+User / team: Combine lexical precision with dense recall; weight toward FTS for exact AS years.
+
+Assistant: `HybridSearcher` merges FTS and optional vector hits with configurable weights (default 0.45 / 0.55).
+
+Tools (Anjana)
+
+User / team: The loop must not load whole documents into the LLM context.
+
+Assistant: Tools return compact hits; `read_section` loads one section on demand. `search_corpus` exposes tier and entity filters used later for Codex-only rescopes.
+
+Commits referenced
+
+- `feat(graph): extract wikilinks and infobox triples`
+- `feat(ingest): corpus walk pipeline writing normalized JSONL`
+- `feat(index): Qdrant local dense index with fastembed`
+- `feat(tools): search_corpus tool with tier and entity filters`
+- `feat(graph): build NetworkX entity graph and JSON export`
+- `feat(index): hybrid fusion of FTS and dense retrieval`
+- `feat(tools): read_section just-in-time loader`
+- `test(ingest): unit tests for metadata and markdown parsing`
+
+Human decision
+
+Ship FTS + graph for 1C demo; treat dense index as optional enhancement.

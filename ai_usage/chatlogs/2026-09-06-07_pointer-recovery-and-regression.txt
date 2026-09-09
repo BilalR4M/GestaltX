@@ -1,0 +1,63 @@
+Chat log — pointer recovery and regression tests
+
+- Date: 2026-09-06 – 2026-09-07 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E5/E6 recovery, E8 regression
+- Reviewed: Yes.
+
+Outcome
+
+After the 5 Sep eval failure, pointer following and near-name disambiguation were strengthened. `1c_000` resolves to 246 AS with Codex citation; `1c_003` forging resolves to 391 AS. Regression tests lock arbitration behavior. Sample question picker improved demo UX.
+
+Session summary
+
+Recovery design (Bilal + Anjana)
+
+User / team: Wiki “contested” must trigger a tier-1 search, not an answer. Gloammarch must never satisfy a Gloamreach founding question.
+
+Assistant:
+
+- Gap critic treats “contested” / “consult the” as open gap.
+- Planner adds Codex/Annals scoped queries on pointer detection.
+- Near-name warnings from entity graph surfaced in trace.
+- Claim extraction attributes years to source tier; arbitration prefers tier 1 entity match.
+
+Result documented in `eval/reports/2026-09-06_recovery.md`.
+
+Claim extraction fixes (Bilal)
+
+User / team: Contested passages without a clean year digit still matter — they signal dispute, not resolution.
+
+Assistant: `_extract_claims` marks secondary contested lines as `Contested` rather than inventing years; quote spans tightened around matched clauses.
+
+Regression tests (Bilal)
+
+User / team: Prevent decoy regression before submission.
+
+Assistant: `tests/test_arbitration.py`, `tests/test_1c_golden.py` assert 246 AS founding and 391 AS forging paths when indexes present.
+
+Frontend polish (Virul)
+
+User / team: Judges need one-click sample questions for the demo narrative.
+
+Assistant: `QuestionPicker` with 1c_000-style prompts; loading states on trace panel.
+
+Architecture docs (Bilal)
+
+User / team: Capture why iterative loop exists for judges reading the repo cold.
+
+Assistant: Initial `docs/architecture.md` and `docs/decisions.md` — iterative research, hybrid retrieval, authority arbitration, SSE trace.
+
+Commits referenced
+
+- `docs(eval): post-fix recovery notes for pointer following`
+- `test(agent): arbitration prefers codex over wiki contested entries`
+- `feat(frontend): sample question picker and loading states`
+- `docs: architecture and key decisions for sub-track 1C`
+
+Golden answers locked
+
+| Question | Expected | Rejected decoy |
+| --- | --- | --- |
+| Gloamreach founding | 246 AS (Codex) | Gloammarch 321 AS |
+| Gauntlet forging | 391 AS (Codex) | Popular 360 AS accounts |

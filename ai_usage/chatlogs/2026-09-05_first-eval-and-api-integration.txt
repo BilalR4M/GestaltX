@@ -1,0 +1,67 @@
+Chat log — first eval, API integration, and 1c_000 failure
+
+- Date: 2026-09-05 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E6 synthesis, E7 answer UI, E8 eval harness
+- Reviewed: Yes.
+
+Outcome
+
+FastAPI `/api/ask` and SSE stream shipped. Answer synthesis with inline citations and confidence landed. Eval harness ran against golden stubs. First full run failed on `1c_000`: contested stall and Gloammarch 321 AS decoy. Failure documented honestly in `eval/reports/2026-09-05_first_run.md`.
+
+Session summary
+
+API and streaming (Bilal)
+
+User / team: Frontend must not poll; stream research steps as they happen.
+
+Assistant: `create_app` with CORS for localhost:3000, `POST /api/ask`, `GET /api/ask/stream` emitting named SSE events. `Runtime` lazy-loads FTS, graph, tools from `data/processed/`.
+
+Bug found same week: Frontend initially called `/ask/stream` without `/api` prefix → 404. Added compatibility routes on both paths.
+
+Synthesis v1 (Bilal)
+
+User / team: Return Markdown answer + citation list + numeric confidence.
+
+Assistant: `synthesize_answer` heuristically builds verdict from arbitrated claims; citations include path, tier label, quote snippet.
+
+Frontend answer panel (Virul)
+
+User / team: Right column shows final answer, confidence bar, numbered citations.
+
+Assistant: `AnswerPanel` renders markdown answer and citation list; loading state while stream open.
+
+Eval harness (Anjana)
+
+User / team: Need repeatable check for Gloamreach founding before submission.
+
+Assistant: `eval/runner.py` with local and HTTP modes; golden file for 246 AS expectation.
+
+First eval failure (team + assistant)
+
+Observed behavior:
+
+1. Wiki hit says founding is contested → loop stopped treating that as unresolved.
+2. Retrieval surfaced Gloammarch (321 AS) due to lexical similarity.
+3. No Codex gazetteer year (246 AS) in final answer.
+
+Assistant diagnosis (documented):
+
+- Gap critic did not force pointer follow strongly enough.
+- Entity filter did not exclude near-name decoy.
+- Synthesis trusted first high-score chunk.
+
+Team decision: Do not hide the failure. Fix in next sprint; keep report in repo as evidence of iterative engineering.
+
+Commits referenced
+
+- `feat(eval): harness over sample_questions with golden stubs`
+- `feat(frontend): answer panel with citations and confidence`
+- `feat(agent): answer synthesis with inline citations`
+- `feat(api): FastAPI ask endpoint with SSE research stream`
+- `docs(eval): record first full-run failures on 1c_000 decoy`
+
+What we did not do
+
+- Fabricate passing metrics for missing official prompts.
+- Commit corpus or index artifacts.

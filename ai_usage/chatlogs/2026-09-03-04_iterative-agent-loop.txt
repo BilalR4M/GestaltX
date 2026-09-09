@@ -1,0 +1,63 @@
+Chat log — iterative agent loop and arbitration
+
+- Date: 2026-09-03 – 2026-09-04 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E5 loop, E6 arbitration
+- Reviewed: Yes.
+
+Outcome
+
+GestaltX became an iterative agent: planner → tool calls → gap critic → reformulate → arbitrate → synthesize. Frontend consumes SSE `iteration` events. Scratchpad tracks claims, open questions, and entity focus.
+
+Session summary
+
+Scratchpad and planner (Bilal)
+
+User / team: “Searching the way a human does” means knowing what you still need. A contested year is a gap, not an answer.
+
+Assistant: `Scratchpad` stores entities, required claims, and extracted `ClaimRecord`s. `Planner` heuristically (and optionally LLM) decomposes questions into queries and claim types (founding year, forging year, pointer resolution).
+
+Gap critic (Bilal)
+
+User / team: When wiki says “contested — consult the Codex”, the loop must open a new search scoped to tier 1.
+
+Assistant: `GapCritic` flags missing claims, conflicting values, and pointer language. Loop continues until satisfied or `max_iterations`.
+
+Research loop (Bilal)
+
+User / team: Wire tools through a registry; stream each iteration to the UI.
+
+Assistant: `ResearchLoop.run/stream` executes `search_corpus`, ingests hits into scratchpad, runs critic, picks next action. SSE emits plan, tool_call, tool_result, critique, answer.
+
+Arbitration (Bilal)
+
+User / team: Higher tier wins for the same claim type, but keep lower-tier conflicts visible in citations.
+
+Assistant: `ClaimArbitrator` picks winning value by tier + entity match; synthesis receives both winner and rivals.
+
+Tools completion (Anjana)
+
+User / team: Need entity lookup and side-by-side claim comparison for demo questions.
+
+Assistant: `lookup_entity`, `list_sources_about`, `compare_claims`; smoke tests for tool schemas.
+
+Frontend SSE (Virul)
+
+User / team: Show iteration count, gap text, query, and sources consulted.
+
+Assistant: `ResearchTrace` lists iterations; fixed duplicate React keys when query strings repeated.
+
+Commits referenced
+
+- `feat(graph): fuzzy near-name warnings for entity lookup`
+- `feat(tools): lookup_entity and list_sources_about`
+- `feat(agent): planner decomposes questions into research steps`
+- `feat(frontend): SSE consumer for live research iterations`
+- `feat(tools): compare_claims across authority tiers`
+- `feat(agent): gap critic detects contested and missing facts`
+- `feat(agent): iterative research loop with tool calling`
+- `feat(agent): source authority arbitration for conflicting claims`
+
+Design principle recorded
+
+One-shot RAG is explicitly rejected for 1C; the trace must show why* a second search happened.

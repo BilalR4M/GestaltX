@@ -1,0 +1,45 @@
+Chat log — foundations and scaffold
+
+- Date: 2026-08-29 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E1 Foundations, E2 ingest models, E7 frontend scaffold
+- Reviewed: Yes. No secrets or corpus text.
+
+Outcome
+
+GestaltX gained a YAML config loader, an OpenAI-compatible LLM client (Ollama default, OpenRouter fallback), a Next.js 15 shell, and Pydantic `Document` / `Section` models. The team agreed the stack must stay local-first and cost-friendly for Codefest 1C.
+
+Session summary
+
+Config and LLM (Bilal)
+
+User / team: Sub-track 1C needs iterative search, not a single embedding call. Start with settings we can override via env and a client that works with Ollama on a laptop.
+
+Assistant: Added `gestaltx.config` with `AppSettings`, `IndexSettings`, `LLMSettings`, and `AgentSettings`. Implemented `LLMClient` with retries, disk cache, and provider switch. Documented Ollama tags probe so the API can report when the model is offline.
+
+Decision: Keep temperature low (0.1) and cap tokens so local models stay usable inside the research loop.
+
+Frontend scaffold (Virul)
+
+User / team: We need a separate trace UI; judges should see progress before the final answer.
+
+Assistant: Scaffolded Next.js App Router under `src/frontend` with Tailwind. No business logic yet — placeholder layout only.
+
+Ingest models (Dasun)
+
+User / team: Parsers will differ by format; normalize everything into one document shape with tier metadata.
+
+Assistant: Defined `Document`, `Section`, and `Chunk` models with `doc_id`, `path`, `tier`, `doctype`, `source_family`, sections list, wikilinks, and infobox dict. This becomes the contract for JSONL and FTS payloads.
+
+Commits referenced
+
+- `feat(config): load YAML and env-based GestaltX settings`
+- `feat(llm): OpenAI-compatible client with Ollama and OpenRouter`
+- `chore(frontend): scaffold Next.js app with Tailwind`
+- `feat(ingest): define Document and Section models`
+
+Human decisions retained
+
+- Python backend + Next.js frontend split.
+- Ollama as default; OpenRouter only when env key present.
+- Corpus stays read-only under `data/raw/`.

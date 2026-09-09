@@ -1,0 +1,43 @@
+Chat log — metadata, chunking, and FTS
+
+- Date: 2026-08-31 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E2 normalization, E3 lexical index
+- Reviewed: Yes.
+
+Outcome
+
+Path-based tier inference (Codex = 1, wiki = 2, etc.), a structure-aware chunker, and SQLite FTS5 index builder landed. `scripts/build_index.py` can produce searchable lexical indexes from normalized JSONL.
+
+Session summary
+
+Metadata and authority (Dasun)
+
+User / team: Arbitration depends on knowing source family before search. Ephemera subtypes (decree, letter, ballad) need different reliability scores.
+
+Assistant: Extended `infer_metadata` with `FAMILY_TIER`, ephemera rank table, and `subject_entity` from `decree_concerning_*` filename patterns. Wiki articles infer subject from stem.
+
+Design check: Tier is convention from folder layout, not ground truth about history.
+
+Chunking (Dasun)
+
+User / team: Chunks must respect section boundaries; overlap helps when a fact spans two sections.
+
+Assistant: `chunk_document` splits on paragraphs/sentences with configurable size (900) and overlap (120). Each chunk carries `doc_id`, `tier`, `path`, entities.
+
+FTS5 (Dasun)
+
+User / team: Exact names and years matter more than semantic paraphrase for 1C goldens.
+
+Assistant: `FTSIndex` virtual table with `unicode61` tokenizer, BM25 ranking, tier/doctype/entity filters. Payload JSON stored for tool responses.
+
+Commits referenced
+
+- `feat(ingest): derive source tier and doctype from path and filename`
+- `feat(ingest): structure-aware chunker for sections`
+- `feat(index): SQLite FTS5 lexical index builder`
+
+Assistant limitations acknowledged
+
+- OCR for scanned PDFs not validated on full corpus yet.
+- Hybrid with vectors planned but not required for first demo.

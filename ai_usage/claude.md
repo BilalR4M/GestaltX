@@ -1,5 +1,8 @@
 # Assistant usage
 
-Claude-family and Cursor Grok-family coding assistants were used to reason about retrieval and UX design, generate implementation drafts, write tests, and review documentation. Outputs require human review and do not constitute evidence for archive answers.
+Claude-family and Cursor (Composer / Grok-family) coding assistants were used to draft code, tests, and documentation. Outputs require human review and do not constitute evidence for archive answers.
 
-Reviewed session logs for the 2026-09-09 interactive-brief and corpus-watcher work live in `ai_usage/chatlogs/`.
+Required submission artifacts:
+
+- [ai-usage-disclosure.md](ai-usage-disclosure.md) — tools, for what, team decisions
+- [chatlogs/README.txt](chatlogs/README.txt) — plain-text conversation logs (29 Aug – 9 Sep 2026)

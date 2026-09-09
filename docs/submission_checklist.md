@@ -10,6 +10,7 @@
 - [ ] Run local and HTTP evaluation modes
 - [ ] Confirm `1c_000` returns 246 AS with a Codex citation
 - [ ] Verify no corpus, cache, index, `.env`, or secret is committed
-- [ ] Export and review AI chat logs under `ai_usage/chatlogs/`
+- [ ] Export and review AI chat logs as plain `.txt` under `ai_usage/chatlogs/` (see README.txt)
+- [ ] Confirm `ai_usage/ai-usage-disclosure.md` lists tools, purposes, and team decisions
 - [ ] Review AI-use disclosure and limitations
 - [ ] Package source, documentation, diagrams, and reproducible setup instructions

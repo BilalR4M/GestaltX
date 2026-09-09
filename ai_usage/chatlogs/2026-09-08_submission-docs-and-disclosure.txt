@@ -1,0 +1,54 @@
+Chat log — submission documentation and AI disclosure
+
+- Date: 2026-09-08 (Asia/Colombo)
+- Tool: Cursor coding assistant
+- Epic: E8 submission package
+- Reviewed: Yes.
+
+Outcome
+
+Submission-facing documentation completed: limitations, frontend README, polished root README, AI usage disclosure placeholders, and export instructions for chat logs. Team aligned on what not* to ship (corpus, indexes, secrets).
+
+Session summary
+
+Limitations (Dasun)
+
+User / team: Judges should see honest bounds — OCR, free-model rate limits, tier conventions.
+
+Assistant: `docs/limitations.md` covers OCR brittleness, OpenRouter availability, confidence not being probability, missing official 20-question file when absent locally.
+
+Frontend runbook (Virul)
+
+User / team: Another developer must run UI against local API in under five minutes.
+
+Assistant: `src/frontend/README.md` with `NEXT_PUBLIC_API_URL`, dev server steps, SSE event names at that stage (`iteration`, `answer`).
+
+Root README (Virul)
+
+User / team: Single entry point for install, corpus placement, index build, API + UI.
+
+Assistant: README tables for team roles, prerequisites, backend/frontend commands, pointer to eval.
+
+AI disclosure (Bilal)
+
+User / team: Competition requires stating how AI was used.
+
+Assistant: `ai_usage/ai-usage-disclosure.md`, `context.md`, `claude.md`, empty `chatlogs/.gitkeep`. `scripts/export_chatlogs.md` describes sanitization rules (no secrets, no absolute paths, no raw corpus in exports).
+
+Architecture polish (Bilal)
+
+User / team: Keep architecture doc short; link to system diagram.
+
+Assistant: `docs/architecture.md` eight-step pipeline summary; `docs/diagrams/system.mmd` initial version.
+
+Commits referenced
+
+- `docs: limitations and failed approaches`
+- `docs(frontend): README for running the UI against local API`
+- `docs(ai): AI usage disclosure and chat log placeholders`
+- `docs: polish root README with setup and run instructions`
+
+Follow-up noted for 9 Sep
+
+- Chat logs still placeholders — need full development-window summaries.
+- UI feedback: answers correct but not readable enough for non-archivists (addressed next day).
