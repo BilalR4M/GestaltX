@@ -71,7 +71,7 @@ class LLMClient:
 
         delay = 1.0
         last_error: Exception | None = None
-        for _ in range(self.settings.max_retries):
+        for attempt in range(self.settings.max_retries):
             try:
                 with httpx.Client(timeout=self.settings.timeout_s) as client:
                     response = client.post(url, headers=headers, json=payload)
@@ -90,6 +90,12 @@ class LLMClient:
                 return content
             except Exception as exc:  # noqa: BLE001 - surface after retries
                 last_error = exc
+                # Connection refused / DNS failures won't heal with retries.
+                msg = str(exc).casefold()
+                if "10061" in msg or "connection refused" in msg or "name or service not known" in msg:
+                    break
+                if attempt + 1 >= self.settings.max_retries:
+                    break
                 time.sleep(delay)
                 delay = min(delay * 2, 30)
         raise RuntimeError(f"LLM request failed after retries: {last_error}")
