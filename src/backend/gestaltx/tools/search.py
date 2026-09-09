@@ -32,32 +32,39 @@ class SearchCorpusTool(Tool):
         query: str,
         *,
         top_k: int = 8,
-        tier: int | None = None,
+        limit: int | None = None,
+        tier: int | list[int] | None = None,
         tiers: list[int] | None = None,
-        **filters: Any,
+        doctype: str | None = None,
+        entity: str | None = None,
+        **_ignored: Any,
     ) -> list[dict[str, Any]]:
         if self.searcher is None:
             return []
-        allowed = tiers or ([tier] if tier is not None else None)
-        attempts = (
-            {"query": query, "top_k": top_k, "tiers": allowed, **filters},
-            {"query": query, "k": top_k, "tier": tier, **filters},
-            {"query": query, "top_k": top_k},
+        k = limit or top_k
+        allowed = tiers if tiers is not None else tier
+        result = self.searcher.search(
+            query,
+            limit=k,
+            tier=allowed,
+            doctype=doctype,
+            entity=entity,
         )
-        last_error: TypeError | None = None
-        for kwargs in attempts:
-            try:
-                result = self.searcher.search(**{k: v for k, v in kwargs.items() if v is not None})
-                rows = result.get("results", []) if isinstance(result, dict) else result
-                plain = [_plain(row) for row in (rows or [])]
-                if allowed:
-                    plain = [row for row in plain if not isinstance(row, dict) or row.get("tier") in allowed]
-                return plain[:top_k]
-            except TypeError as exc:
-                last_error = exc
-        if last_error:
-            raise last_error
-        return []
+        rows = result.get("results", []) if isinstance(result, dict) else result
+        plain = [_plain(row) for row in (rows or [])]
+        if isinstance(allowed, list):
+            plain = [
+                row
+                for row in plain
+                if not isinstance(row, dict) or row.get("tier") in allowed
+            ]
+        elif isinstance(allowed, int):
+            plain = [
+                row
+                for row in plain
+                if not isinstance(row, dict) or row.get("tier") == allowed
+            ]
+        return plain[:k]
 
 
 __all__ = ["SearchCorpusTool"]
