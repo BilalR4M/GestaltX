@@ -17,7 +17,7 @@ conflicts, and returns a cited answer with a live research trace.
 
 | Member | Role |
 | --- | --- |
-| Bilal Rashid | Lead - agent loop, LLM, arbitration |
+| Bilal Awshid | Lead - agent loop, LLM, arbitration |
 | Dasun Wickramasooriya | Ingestion, parsers, indexing |
 | Anjana Pinnawala | Entity graph, tools, evaluation |
 | Virul Methnidu Meemana | Frontend - Next.js live trace UI |

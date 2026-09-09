@@ -14,7 +14,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 TEAM = {
-    "bilal": ("Bilal Rashid", "bilalawshid@gmail.com"),
+    "bilal": ("Bilal Awshid", "bilalawshid@gmail.com"),
     "dasun": ("Dasun Wickramasooriya", "dasun.wickramasooriya@gmail.com"),
     "anjana": ("Anjana Pinnawala", "anjidipzimx@gmail.com"),
     "virul": ("Virul Methnidu Meemana", "virul.mmeemana@gmail.com"),
