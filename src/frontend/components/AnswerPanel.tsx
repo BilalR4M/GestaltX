@@ -119,7 +119,7 @@ export function AnswerPanel({
     ? Math.max(0, Math.min(100, Math.round(result.confidence * 100)))
     : null;
   const provenance =
-    result?.mode === "llm" ? "LLM-assisted" : result ? "Archive arbitration" : null;
+    result?.mode === "llm" ? "AI-assisted summary" : result ? "From archive evidence" : null;
   const confidenceBadge =
     confidence != null
       ? `${result?.confidence_label ?? "Confidence"} (${confidence}%)`

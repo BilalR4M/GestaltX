@@ -12,7 +12,7 @@ export function QuestionPicker({ onPick, disabled }: {
     <div className="question-picker" aria-label="Sample questions">
       {SAMPLE_QUESTIONS.map((sample) => (
         <button key={sample.id} type="button" disabled={disabled} onClick={() => onPick(sample.question)}>
-          <span>{sample.id}</span>{sample.question}
+          {sample.question}
         </button>
       ))}
     </div>

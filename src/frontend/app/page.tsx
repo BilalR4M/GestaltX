@@ -102,7 +102,7 @@ export default function Home() {
     setPartialSections({});
     setError("");
     setStatus("researching");
-    setStatusLine("Opening a chain of thought…");
+    setStatusLine("Beginning the investigation…");
     stopRef.current = streamResearch(
       researchStreamUrl(cleanQuestion),
       (message) => {
@@ -131,7 +131,7 @@ export default function Home() {
             }));
             setStatusLine(
               activity.hit_count != null
-                ? `Found ${activity.hit_count} archive hits`
+                ? `Found ${activity.hit_count} archive matches`
                 : "Search complete"
             );
           } else if (activity.kind === "status" && activity.message) {
@@ -180,8 +180,8 @@ export default function Home() {
           setStatus("idle");
           setStatusLine(
             message.data.mode === "llm"
-              ? "Verdict drafted with LLM-assisted reasoning."
-              : "Verdict drafted from archive arbitration."
+              ? "Answer drafted with AI assistance."
+              : "Answer built directly from the archive."
           );
         }
         if (message.type === "error") {
@@ -193,7 +193,7 @@ export default function Home() {
       (reason) => {
         setError(reason.message);
         setStatus("error");
-        setStatusLine("Research stream disconnected.");
+        setStatusLine("Connection interrupted. Please try again.");
       }
     );
   }
@@ -201,11 +201,11 @@ export default function Home() {
   return (
     <main>
       <header className="hero">
-        <div className="brand"><span>GX</span> GESTALTX / ARCHIVE RESEARCH</div>
-        <h1>Search like a researcher,<br /><em>not a keyword box.</em></h1>
-        <p>
-          Watch GestaltX think live: frame the question, run archive tools, judge conflicts,
-          then reveal a plain-language verdict with citations.
+        <div className="brand"><span>GX</span> ARCHIVE RESEARCH</div>
+        <h1 className="product-name">GESTALTX</h1>
+        <p className="tagline">
+          Search like a researcher, <em>not a keyword box.</em> Watch the research happen live,
+          then get a plain-language answer with citations.
         </p>
         {archiveChip ? (
           <p className="archive-chip" role="status">{archiveChip}</p>
@@ -244,6 +244,9 @@ export default function Home() {
           partialMarkdown={partialMarkdown}
         />
       </div>
+      <footer className="site-footer">
+        © 2026 GestaltX · Built by <em>“It works on my computer”</em> team
+      </footer>
     </main>
   );
 }

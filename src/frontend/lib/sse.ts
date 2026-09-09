@@ -71,7 +71,7 @@ export function streamResearch(
         lastQuery = String(payload.query ?? lastQuery);
         emitIteration({
           iteration: Number(payload.iteration ?? 1),
-          gap: "Searching archive",
+          gap: "Searching the archive",
           query: lastQuery,
           sources: []
         });
@@ -91,7 +91,7 @@ export function streamResearch(
         ).slice(0, 6);
         emitIteration({
           iteration: Number(payload.iteration ?? 1),
-          gap: "Read search hits",
+          gap: "Reading the matches",
           query: lastQuery,
           sources: lastSources
         });
@@ -102,7 +102,7 @@ export function streamResearch(
         const next = (payload.next_action as Record<string, unknown> | null) ?? null;
         emitIteration({
           iteration: Number(payload.iteration ?? 1),
-          gap: reasons.join("; ") || (payload.sufficient ? "Evidence sufficient" : "Gap remains"),
+          gap: reasons.join("; ") || (payload.sufficient ? "Have enough evidence" : "Need more searching"),
           query: String(next?.query ?? lastQuery),
           sources: lastSources
         });
@@ -118,7 +118,7 @@ export function streamResearch(
         source.close();
       }
     } catch {
-      onError?.(new Error("The research stream returned invalid JSON."));
+      onError?.(new Error("The archive returned an unexpected response."));
       source.close();
     }
   };
@@ -155,11 +155,11 @@ export function streamResearch(
     if (!sawPayload) {
       onError?.(
         new Error(
-          "Connection to the research stream was lost. Is the API running at http://127.0.0.1:8000?"
+          "Connection lost. Is the backend running at http://127.0.0.1:8000?"
         )
       );
     } else {
-      onError?.(new Error("Connection to the research stream was lost before a final answer."));
+      onError?.(new Error("Connection lost before the answer was complete."));
     }
     source.close();
   };

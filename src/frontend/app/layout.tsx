@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "GestaltX Research",
-  description: "Gap-driven research over the Ashen Era Archive"
+  description: "Ask questions and get plain-language answers from the Ashen Era Archive"
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

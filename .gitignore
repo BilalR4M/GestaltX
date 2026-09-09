@@ -34,6 +34,7 @@ node_modules/
 src/frontend/.next/
 src/frontend/out/
 src/frontend/node_modules/
+src/backend/package-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

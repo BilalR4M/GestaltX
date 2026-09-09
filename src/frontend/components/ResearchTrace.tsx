@@ -139,15 +139,15 @@ export function ResearchTrace({
       <div className="panel-heading">
         <div>
           <p className="eyebrow">Live process</p>
-          <h2 id="trace-heading">Research trace</h2>
+          <h2 id="trace-heading">Research steps</h2>
         </div>
         <span className="count">{count} steps</span>
       </div>
       {count === 0 ? (
         <p className="empty">
           {busy
-            ? "Opening a chain of thought…"
-            : "Thoughts, tool calls, and judgments appear here live as the agent researches."}
+            ? "Beginning the investigation…"
+            : "Watch each step of the research as it happens."}
         </p>
       ) : usingFeed ? (
         <ol className="trace-list thought-stream activity-feed">

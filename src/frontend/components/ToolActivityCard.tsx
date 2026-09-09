@@ -3,8 +3,8 @@
 import type { ToolCardState } from "@/lib/api";
 
 const TOOL_LABEL: Record<string, string> = {
-  search_corpus: "search_corpus",
-  injected_evidence: "injected_evidence"
+  search_corpus: "Searching the archive",
+  injected_evidence: "Reading the evidence"
 };
 
 export function ToolActivityCard({ tool }: { tool: ToolCardState }) {
@@ -20,7 +20,7 @@ export function ToolActivityCard({ tool }: { tool: ToolCardState }) {
             <code>{label}</code>
             {running ? <span className="tool-state">Searching…</span> : (
               <span className="tool-state">
-                {tool.hitCount != null ? `${tool.hitCount} hits` : "Done"}
+                {tool.hitCount != null ? `${tool.hitCount} matches` : "Complete"}
               </span>
             )}
           </p>
